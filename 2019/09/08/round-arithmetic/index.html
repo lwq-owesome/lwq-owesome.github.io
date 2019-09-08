@@ -94,13 +94,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="记录我，记录生活">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940package com.awesome.arithmetic;import java.util.concurrent.atomic.AtomicInteger;/** *  轮训算法 * * @author awesome */public class Ro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ribbon 轮循算法demo（也适用于分布式环境）">
+<meta property="og:url" content="http://yoursite.com/2019/09/08/round-arithmetic/index.html">
 <meta property="og:site_name" content="记录我，记录生活">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940package com.awesome.arithmetic;import java.util.concurrent.atomic.AtomicInteger;/** *  轮训算法 * * @author awesome */public class Ro">
 <meta property="og:locale" content="ch">
+<meta property="og:updated_time" content="2019-09-08T12:23:19.186Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记录我，记录生活">
+<meta name="twitter:title" content="ribbon 轮循算法demo（也适用于分布式环境）">
+<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940package com.awesome.arithmetic;import java.util.concurrent.atomic.AtomicInteger;/** *  轮训算法 * * @author awesome */public class Ro">
 
 
 
@@ -129,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/08/round-arithmetic/">
 
 
 
 
 
-  <title>记录我，记录生活</title>
+  <title>ribbon 轮循算法demo（也适用于分布式环境） | 记录我，记录生活</title>
   
 
 
@@ -160,9 +164,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -245,9 +247,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -277,9 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/08/round-arithmetic/" itemprop="url">ribbon 轮循算法demo（也适用于分布式环境）</a></h1>
+          <h1 class="post-title" itemprop="name headline">ribbon 轮循算法demo（也适用于分布式环境）</h1>
         
 
         <div class="post-meta">
@@ -329,13 +329,9 @@
       
 
       
-        
-          
-            <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.awesome.arithmetic;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.atomic.AtomicInteger;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  轮训算法</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> awesome</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RoundArithmetic</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span>  <span class="keyword">static</span> AtomicInteger rounder=<span class="keyword">new</span> AtomicInteger(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(roundArithmetic(<span class="number">3</span>));</span><br><span class="line">        System.out.println(roundArithmetic(<span class="number">3</span>));</span><br><span class="line">        System.out.println(roundArithmetic(<span class="number">3</span>));</span><br><span class="line">        System.out.println(roundArithmetic(<span class="number">3</span>));</span><br><span class="line">        System.out.println(roundArithmetic(<span class="number">3</span>));</span><br><span class="line">        System.out.println(roundArithmetic(<span class="number">3</span>));</span><br><span class="line">        System.out.println(roundArithmetic(<span class="number">3</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 负载均衡轮循算法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> modulo</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  <span class="keyword">int</span>  <span class="title">roundArithmetic</span><span class="params">(Integer modulo)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> current=rounder.get();  <span class="comment">//第一次默认为0</span></span><br><span class="line">        <span class="keyword">int</span> next=(current+<span class="number">1</span>)%modulo;</span><br><span class="line">        <span class="keyword">if</span> (rounder.compareAndSet(current,next))&#123;</span><br><span class="line">            <span class="keyword">return</span>  current;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>  current;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.awesome.arithmetic;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.atomic.AtomicInteger;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  轮训算法</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> awesome</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RoundArithmetic</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span>  <span class="keyword">static</span> AtomicInteger rounder=<span class="keyword">new</span> AtomicInteger(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(roundArithmetic(<span class="number">3</span>));</span><br><span class="line">        System.out.println(roundArithmetic(<span class="number">3</span>));</span><br><span class="line">        System.out.println(roundArithmetic(<span class="number">3</span>));</span><br><span class="line">        System.out.println(roundArithmetic(<span class="number">3</span>));</span><br><span class="line">        System.out.println(roundArithmetic(<span class="number">3</span>));</span><br><span class="line">        System.out.println(roundArithmetic(<span class="number">3</span>));</span><br><span class="line">        System.out.println(roundArithmetic(<span class="number">3</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 负载均衡轮循算法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> modulo</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  <span class="keyword">int</span>  <span class="title">roundArithmetic</span><span class="params">(Integer modulo)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> current=rounder.get();  <span class="comment">//第一次默认为0</span></span><br><span class="line">        <span class="keyword">int</span> next=(current+<span class="number">1</span>)%modulo;</span><br><span class="line">        <span class="keyword">if</span> (rounder.compareAndSet(current,next))&#123;</span><br><span class="line">            <span class="keyword">return</span>  current;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>  current;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h5 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/bin/java <span class="string">"-javaagent:/Applications/IntelliJ IDEA.app/Contents/lib/idea_rt.jar=60238:/Applications/IntelliJ IDEA.app/Contents/bin"</span> -Dfile.encoding=UTF-<span class="number">8</span> -classpath /Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/deploy.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/ext/cldrdata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/ext/dnsns.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/ext/jaccess.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/ext/jfxrt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/ext/localedata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/ext/nashorn.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/ext/sunec.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/ext/sunjce_provider.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/ext/sunpkcs11.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/ext/zipfs.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/javaws.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/jfxswt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/management-agent.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/plugin.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/lib/ant-javafx.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/lib/dt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/lib/javafx-mx.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/lib/jconsole.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/lib/packager.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/lib/sa-jdi.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/lib/tools.jar:/Users/awesome/Documents/souce/zuul/cheer-source/ribbon-test-service-peer2/target/test-classes:/Users/awesome/Documents/souce/zuul/cheer-source/ribbon-test-service-peer2/target/classes:/Users/awesome/.m2/repository/org/springframework/cloud/spring-cloud-starter-netflix-eureka-client/<span class="number">2.0</span>.0.RELEASE/spring-cloud-starter-netflix-eureka-client-<span class="number">2.0</span>.0.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/cloud/spring-cloud-starter/<span class="number">2.0</span>.0.RELEASE/spring-cloud-starter-<span class="number">2.0</span>.0.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/cloud/spring-cloud-context/<span class="number">2.0</span>.0.RELEASE/spring-cloud-context-<span class="number">2.0</span>.0.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/security/spring-security-crypto/<span class="number">5.0</span>.4.RELEASE/spring-security-crypto-<span class="number">5.0</span>.4.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/cloud/spring-cloud-commons/<span class="number">2.0</span>.0.RELEASE/spring-cloud-commons-<span class="number">2.0</span>.0.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/security/spring-security-rsa/<span class="number">1.0</span>.5.RELEASE/spring-security-rsa-<span class="number">1.0</span>.5.RELEASE.jar:/Users/awesome/.m2/repository/org/bouncycastle/bcpkix-jdk15on/<span class="number">1.56</span>/bcpkix-jdk15on-<span class="number">1.56</span>.jar:/Users/awesome/.m2/repository/org/bouncycastle/bcprov-jdk15on/<span class="number">1.56</span>/bcprov-jdk15on-<span class="number">1.56</span>.jar:/Users/awesome/.m2/repository/org/springframework/cloud/spring-cloud-netflix-core/<span class="number">2.0</span>.0.RELEASE/spring-cloud-netflix-core-<span class="number">2.0</span>.0.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/<span class="number">2.0</span>.1.RELEASE/spring-boot-autoconfigure-<span class="number">2.0</span>.1.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/boot/spring-boot-starter-aop/<span class="number">2.0</span>.1.RELEASE/spring-boot-starter-aop-<span class="number">2.0</span>.1.RELEASE.jar:/Users/awesome/.m2/repository/org/aspectj/aspectjweaver/<span class="number">1.8</span>.13/aspectjweaver-<span class="number">1.8</span>.13.jar:/Users/awesome/.m2/repository/org/springframework/cloud/spring-cloud-netflix-eureka-client/<span class="number">2.0</span>.0.RELEASE/spring-cloud-netflix-eureka-client-<span class="number">2.0</span>.0.RELEASE.jar:/Users/awesome/.m2/repository/com/netflix/eureka/eureka-client/<span class="number">1.9</span>.2/eureka-client-<span class="number">1.9</span>.2.jar:/Users/awesome/.m2/repository/org/codehaus/jettison/jettison/<span class="number">1.3</span>.7/jettison-<span class="number">1.3</span>.7.jar:/Users/awesome/.m2/repository/stax/stax-api/<span class="number">1.0</span>.1/stax-api-<span class="number">1.0</span>.1.jar:/Users/awesome/.m2/repository/com/netflix/netflix-commons/netflix-eventbus/<span class="number">0.3</span>.0/netflix-eventbus-<span class="number">0.3</span>.0.jar:/Users/awesome/.m2/repository/com/netflix/netflix-commons/netflix-infix/<span class="number">0.3</span>.0/netflix-infix-<span class="number">0.3</span>.0.jar:/Users/awesome/.m2/repository/commons-jxpath/commons-jxpath/<span class="number">1.3</span>/commons-jxpath-<span class="number">1.3</span>.jar:/Users/awesome/.m2/repository/joda-time/joda-time/<span class="number">2.9</span>.9/joda-time-<span class="number">2.9</span>.9.jar:/Users/awesome/.m2/repository/org/antlr/antlr-runtime/<span class="number">3.4</span>/antlr-runtime-<span class="number">3.4</span>.jar:/Users/awesome/.m2/repository/org/antlr/stringtemplate/<span class="number">3.2</span>.1/stringtemplate-<span class="number">3.2</span>.1.jar:/Users/awesome/.m2/repository/antlr/antlr/<span class="number">2.7</span>.7/antlr-<span class="number">2.7</span>.7.jar:/Users/awesome/.m2/repository/com/google/code/gson/gson/<span class="number">2.8</span>.2/gson-<span class="number">2.8</span>.2.jar:/Users/awesome/.m2/repository/org/apache/commons/commons-math/<span class="number">2.2</span>/commons-math-<span class="number">2.2</span>.jar:/Users/awesome/.m2/repository/com/netflix/archaius/archaius-core/<span class="number">0.7</span>.6/archaius-core-<span class="number">0.7</span>.6.jar:/Users/awesome/.m2/repository/com/google/guava/guava/<span class="number">16.0</span>/guava-<span class="number">16.0</span>.jar:/Users/awesome/.m2/repository/javax/ws/rs/jsr311-api/<span class="number">1.1</span>.1/jsr311-api-<span class="number">1.1</span>.1.jar:/Users/awesome/.m2/repository/com/netflix/servo/servo-core/<span class="number">0.12</span>.21/servo-core-<span class="number">0.12</span>.21.jar:/Users/awesome/.m2/repository/com/sun/jersey/jersey-core/<span class="number">1.19</span>.1/jersey-core-<span class="number">1.19</span>.1.jar:/Users/awesome/.m2/repository/com/sun/jersey/jersey-client/<span class="number">1.19</span>.1/jersey-client-<span class="number">1.19</span>.1.jar:/Users/awesome/.m2/repository/com/sun/jersey/contribs/jersey-apache-client4/<span class="number">1.19</span>.1/jersey-apache-client4-<span class="number">1.19</span>.1.jar:/Users/awesome/.m2/repository/org/apache/httpcomponents/httpclient/<span class="number">4.5</span>.5/httpclient-<span class="number">4.5</span>.5.jar:/Users/awesome/.m2/repository/org/apache/httpcomponents/httpcore/<span class="number">4.4</span>.9/httpcore-<span class="number">4.4</span>.9.jar:/Users/awesome/.m2/repository/commons-codec/commons-codec/<span class="number">1.11</span>/commons-codec-<span class="number">1.11</span>.jar:/Users/awesome/.m2/repository/com/google/inject/guice/<span class="number">4.1</span>.0/guice-<span class="number">4.1</span>.0.jar:/Users/awesome/.m2/repository/javax/inject/javax.inject/<span class="number">1</span>/javax.inject-<span class="number">1</span>.jar:/Users/awesome/.m2/repository/aopalliance/aopalliance/<span class="number">1.0</span>/aopalliance-<span class="number">1.0</span>.jar:/Users/awesome/.m2/repository/com/github/vlsi/compactmap/compactmap/<span class="number">1.2</span>.1/compactmap-<span class="number">1.2</span>.1.jar:/Users/awesome/.m2/repository/com/github/andrewoma/dexx/dexx-collections/<span class="number">0.2</span>/dexx-collections-<span class="number">0.2</span>.jar:/Users/awesome/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/<span class="number">2.9</span>.0/jackson-annotations-<span class="number">2.9</span>.0.jar:/Users/awesome/.m2/repository/com/fasterxml/jackson/core/jackson-core/<span class="number">2.9</span>.5/jackson-core-<span class="number">2.9</span>.5.jar:/Users/awesome/.m2/repository/com/fasterxml/jackson/core/jackson-databind/<span class="number">2.9</span>.5/jackson-databind-<span class="number">2.9</span>.5.jar:/Users/awesome/.m2/repository/com/netflix/eureka/eureka-core/<span class="number">1.9</span>.2/eureka-core-<span class="number">1.9</span>.2.jar:/Users/awesome/.m2/repository/org/codehaus/woodstox/woodstox-core-asl/<span class="number">4.4</span>.1/woodstox-core-asl-<span class="number">4.4</span>.1.jar:/Users/awesome/.m2/repository/javax/xml/stream/stax-api/<span class="number">1.0</span>-<span class="number">2</span>/stax-api-<span class="number">1.0</span>-<span class="number">2</span>.jar:/Users/awesome/.m2/repository/org/codehaus/woodstox/stax2-api/<span class="number">3.1</span>.4/stax2-api-<span class="number">3.1</span>.4.jar:/Users/awesome/.m2/repository/org/springframework/cloud/spring-cloud-starter-netflix-archaius/<span class="number">2.0</span>.0.RELEASE/spring-cloud-starter-netflix-archaius-<span class="number">2.0</span>.0.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/cloud/spring-cloud-netflix-ribbon/<span class="number">2.0</span>.0.RELEASE/spring-cloud-netflix-ribbon-<span class="number">2.0</span>.0.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/cloud/spring-cloud-netflix-archaius/<span class="number">2.0</span>.0.RELEASE/spring-cloud-netflix-archaius-<span class="number">2.0</span>.0.RELEASE.jar:/Users/awesome/.m2/repository/commons-configuration/commons-configuration/<span class="number">1.8</span>/commons-configuration-<span class="number">1.8</span>.jar:/Users/awesome/.m2/repository/commons-lang/commons-lang/<span class="number">2.6</span>/commons-lang-<span class="number">2.6</span>.jar:/Users/awesome/.m2/repository/org/springframework/cloud/spring-cloud-starter-netflix-ribbon/<span class="number">2.0</span>.0.RELEASE/spring-cloud-starter-netflix-ribbon-<span class="number">2.0</span>.0.RELEASE.jar:/Users/awesome/.m2/repository/com/netflix/ribbon/ribbon/<span class="number">2.2</span>.5/ribbon-<span class="number">2.2</span>.5.jar:/Users/awesome/.m2/repository/com/netflix/ribbon/ribbon-transport/<span class="number">2.2</span>.5/ribbon-transport-<span class="number">2.2</span>.5.jar:/Users/awesome/.m2/repository/io/reactivex/rxnetty-contexts/<span class="number">0.4</span>.9/rxnetty-contexts-<span class="number">0.4</span>.9.jar:/Users/awesome/.m2/repository/io/reactivex/rxnetty-servo/<span class="number">0.4</span>.9/rxnetty-servo-<span class="number">0.4</span>.9.jar:/Users/awesome/.m2/repository/com/netflix/hystrix/hystrix-core/<span class="number">1.5</span>.12/hystrix-core-<span class="number">1.5</span>.12.jar:/Users/awesome/.m2/repository/org/hdrhistogram/HdrHistogram/<span class="number">2.1</span>.9/HdrHistogram-<span class="number">2.1</span>.9.jar:/Users/awesome/.m2/repository/io/reactivex/rxnetty/<span class="number">0.4</span>.9/rxnetty-<span class="number">0.4</span>.9.jar:/Users/awesome/.m2/repository/io/netty/netty-codec-http/<span class="number">4.1</span>.23.Final/netty-codec-http-<span class="number">4.1</span>.23.Final.jar:/Users/awesome/.m2/repository/io/netty/netty-codec/<span class="number">4.1</span>.23.Final/netty-codec-<span class="number">4.1</span>.23.Final.jar:/Users/awesome/.m2/repository/io/netty/netty-transport-<span class="keyword">native</span>-epoll/<span class="number">4.1</span>.23.Final/netty-transport-<span class="keyword">native</span>-epoll-<span class="number">4.1</span>.23.Final.jar:/Users/awesome/.m2/repository/io/netty/netty-common/<span class="number">4.1</span>.23.Final/netty-common-<span class="number">4.1</span>.23.Final.jar:/Users/awesome/.m2/repository/io/netty/netty-buffer/<span class="number">4.1</span>.23.Final/netty-buffer-<span class="number">4.1</span>.23.Final.jar:/Users/awesome/.m2/repository/io/netty/netty-transport-<span class="keyword">native</span>-unix-common/<span class="number">4.1</span>.23.Final/netty-transport-<span class="keyword">native</span>-unix-common-<span class="number">4.1</span>.23.Final.jar:/Users/awesome/.m2/repository/io/netty/netty-transport/<span class="number">4.1</span>.23.Final/netty-transport-<span class="number">4.1</span>.23.Final.jar:/Users/awesome/.m2/repository/io/netty/netty-resolver/<span class="number">4.1</span>.23.Final/netty-resolver-<span class="number">4.1</span>.23.Final.jar:/Users/awesome/.m2/repository/com/netflix/ribbon/ribbon-core/<span class="number">2.2</span>.5/ribbon-core-<span class="number">2.2</span>.5.jar:/Users/awesome/.m2/repository/com/netflix/ribbon/ribbon-httpclient/<span class="number">2.2</span>.5/ribbon-httpclient-<span class="number">2.2</span>.5.jar:/Users/awesome/.m2/repository/commons-collections/commons-collections/<span class="number">3.2</span>.2/commons-collections-<span class="number">3.2</span>.2.jar:/Users/awesome/.m2/repository/com/netflix/netflix-commons/netflix-commons-util/<span class="number">0.3</span>.0/netflix-commons-util-<span class="number">0.3</span>.0.jar:/Users/awesome/.m2/repository/com/netflix/ribbon/ribbon-loadbalancer/<span class="number">2.2</span>.5/ribbon-loadbalancer-<span class="number">2.2</span>.5.jar:/Users/awesome/.m2/repository/com/netflix/netflix-commons/netflix-statistics/<span class="number">0.1</span>.1/netflix-statistics-<span class="number">0.1</span>.1.jar:/Users/awesome/.m2/repository/io/reactivex/rxjava/<span class="number">1.3</span>.8/rxjava-<span class="number">1.3</span>.8.jar:/Users/awesome/.m2/repository/com/netflix/ribbon/ribbon-eureka/<span class="number">2.2</span>.5/ribbon-eureka-<span class="number">2.2</span>.5.jar:/Users/awesome/.m2/repository/org/slf4j/slf4j-api/<span class="number">1.7</span>.25/slf4j-api-<span class="number">1.7</span>.25.jar:/Users/awesome/.m2/repository/com/thoughtworks/xstream/xstream/<span class="number">1.4</span>.10/xstream-<span class="number">1.4</span>.10.jar:/Users/awesome/.m2/repository/xmlpull/xmlpull/<span class="number">1.1</span>.3.1/xmlpull-<span class="number">1.1</span>.3.1.jar:/Users/awesome/.m2/repository/xpp3/xpp3_min/<span class="number">1.1</span>.4c/xpp3_min-<span class="number">1.1</span>.4c.jar:/Users/awesome/.m2/repository/org/springframework/boot/spring-boot-starter-web/<span class="number">2.0</span>.1.RELEASE/spring-boot-starter-web-<span class="number">2.0</span>.1.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/boot/spring-boot-starter/<span class="number">2.0</span>.1.RELEASE/spring-boot-starter-<span class="number">2.0</span>.1.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/boot/spring-boot/<span class="number">2.0</span>.1.RELEASE/spring-boot-<span class="number">2.0</span>.1.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/boot/spring-boot-starter-logging/<span class="number">2.0</span>.1.RELEASE/spring-boot-starter-logging-<span class="number">2.0</span>.1.RELEASE.jar:/Users/awesome/.m2/repository/ch/qos/logback/logback-classic/<span class="number">1.2</span>.3/logback-classic-<span class="number">1.2</span>.3.jar:/Users/awesome/.m2/repository/ch/qos/logback/logback-core/<span class="number">1.2</span>.3/logback-core-<span class="number">1.2</span>.3.jar:/Users/awesome/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/<span class="number">2.10</span>.0/log4j-to-slf4j-<span class="number">2.10</span>.0.jar:/Users/awesome/.m2/repository/org/apache/logging/log4j/log4j-api/<span class="number">2.10</span>.0/log4j-api-<span class="number">2.10</span>.0.jar:/Users/awesome/.m2/repository/org/slf4j/jul-to-slf4j/<span class="number">1.7</span>.25/jul-to-slf4j-<span class="number">1.7</span>.25.jar:/Users/awesome/.m2/repository/javax/annotation/javax.annotation-api/<span class="number">1.3</span>.2/javax.annotation-api-<span class="number">1.3</span>.2.jar:/Users/awesome/.m2/repository/org/springframework/spring-core/<span class="number">5.0</span>.5.RELEASE/spring-core-<span class="number">5.0</span>.5.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/spring-jcl/<span class="number">5.0</span>.5.RELEASE/spring-jcl-<span class="number">5.0</span>.5.RELEASE.jar:/Users/awesome/.m2/repository/org/yaml/snakeyaml/<span class="number">1.19</span>/snakeyaml-<span class="number">1.19</span>.jar:/Users/awesome/.m2/repository/org/springframework/boot/spring-boot-starter-json/<span class="number">2.0</span>.1.RELEASE/spring-boot-starter-json-<span class="number">2.0</span>.1.RELEASE.jar:/Users/awesome/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/<span class="number">2.9</span>.5/jackson-datatype-jdk8-<span class="number">2.9</span>.5.jar:/Users/awesome/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/<span class="number">2.9</span>.5/jackson-datatype-jsr310-<span class="number">2.9</span>.5.jar:/Users/awesome/.m2/repository/com/fasterxml/jackson/<span class="keyword">module</span>/jackson-<span class="keyword">module</span>-parameter-names/<span class="number">2.9</span>.5/jackson-<span class="keyword">module</span>-parameter-names-<span class="number">2.9</span>.5.jar:/Users/awesome/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/<span class="number">2.0</span>.1.RELEASE/spring-boot-starter-tomcat-<span class="number">2.0</span>.1.RELEASE.jar:/Users/awesome/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/<span class="number">8.5</span>.29/tomcat-embed-core-<span class="number">8.5</span>.29.jar:/Users/awesome/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/<span class="number">8.5</span>.29/tomcat-embed-el-<span class="number">8.5</span>.29.jar:/Users/awesome/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/<span class="number">8.5</span>.29/tomcat-embed-websocket-<span class="number">8.5</span>.29.jar:/Users/awesome/.m2/repository/org/hibernate/validator/hibernate-validator/<span class="number">6.0</span>.9.Final/hibernate-validator-<span class="number">6.0</span>.9.Final.jar:/Users/awesome/.m2/repository/javax/validation/validation-api/<span class="number">2.0</span>.1.Final/validation-api-<span class="number">2.0</span>.1.Final.jar:/Users/awesome/.m2/repository/org/jboss/logging/jboss-logging/<span class="number">3.3</span>.2.Final/jboss-logging-<span class="number">3.3</span>.2.Final.jar:/Users/awesome/.m2/repository/com/fasterxml/classmate/<span class="number">1.3</span>.4/classmate-<span class="number">1.3</span>.4.jar:/Users/awesome/.m2/repository/org/springframework/spring-web/<span class="number">5.0</span>.5.RELEASE/spring-web-<span class="number">5.0</span>.5.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/spring-beans/<span class="number">5.0</span>.5.RELEASE/spring-beans-<span class="number">5.0</span>.5.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/spring-webmvc/<span class="number">5.0</span>.5.RELEASE/spring-webmvc-<span class="number">5.0</span>.5.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/spring-aop/<span class="number">5.0</span>.5.RELEASE/spring-aop-<span class="number">5.0</span>.5.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/spring-context/<span class="number">5.0</span>.5.RELEASE/spring-context-<span class="number">5.0</span>.5.RELEASE.jar:/Users/awesome/.m2/repository/org/springframework/spring-expression/<span class="number">5.0</span>.5.RELEASE/spring-expression-<span class="number">5.0</span>.5.RELEASE.jar com.awesome.arithmetic.RoundArithmetic</span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">0</span></span><br><span class="line"></span><br><span class="line">Process finished with exit code <span class="number">0</span></span><br></pre></td></tr></table></figure>
-          
-        
       
     </div>
     
@@ -352,195 +348,28 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/06/ribbon-source/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Awesome.li">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="记录我，记录生活">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/06/ribbon-source/" itemprop="url">Ribbon 源码解析（一）Ribbon初始化&Ribbon -Eurka 整合</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-06T09:28:10+08:00">
-                2019-09-06
-              </time>
+              <a href="/2019/09/06/ribbon-source/" rel="next" title="Ribbon 源码解析（一）Ribbon初始化&Ribbon -Eurka 整合">
+                <i class="fa fa-chevron-left"></i> Ribbon 源码解析（一）Ribbon初始化&Ribbon -Eurka 整合
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h4 id="Ribbon-是springcloud-负载均衡的组件，其工作原理就是-通过Eureka注册中心的ApplicationName进行请求转发（负载均衡）。客户端通过appname进行请求，ribbon内部通过RestTempelate-此appname-从eureka注册中心fetch-服务实例注册信息（服务名称，所在的机器ip-端口-是否存活等～），然后进行HTTP调用"><a href="#Ribbon-是springcloud-负载均衡的组件，其工作原理就是-通过Eureka注册中心的ApplicationName进行请求转发（负载均衡）。客户端通过appname进行请求，ribbon内部通过RestTempelate-此appname-从eureka注册中心fetch-服务实例注册信息（服务名称，所在的机器ip-端口-是否存活等～），然后进行HTTP调用" class="headerlink" title="Ribbon 是springcloud 负载均衡的组件，其工作原理就是 通过Eureka注册中心的ApplicationName进行请求转发（负载均衡）。客户端通过appname进行请求，ribbon内部通过RestTempelate 此appname 从eureka注册中心fetch 服务实例注册信息（服务名称，所在的机器ip 端口  是否存活等～），然后进行HTTP调用"></a>Ribbon 是springcloud 负载均衡的组件，其工作原理就是 通过Eureka注册中心的ApplicationName进行请求转发（负载均衡）。客户端通过appname进行请求，ribbon内部通过RestTempelate 此appname 从eureka注册中心fetch 服务实例注册信息（服务名称，所在的机器ip 端口  是否存活等～），然后进行HTTP调用</h4><h5 id="1-，-LoadBalanced是入口，触发LoadBalancerAutoConfiguration。而LoadBalancedAutoConfiguration-会创建"><a href="#1-，-LoadBalanced是入口，触发LoadBalancerAutoConfiguration。而LoadBalancedAutoConfiguration-会创建" class="headerlink" title="1 ，@LoadBalanced是入口，触发LoadBalancerAutoConfiguration。而LoadBalancedAutoConfiguration 会创建"></a>1 ，@LoadBalanced是入口，触发LoadBalancerAutoConfiguration。而LoadBalancedAutoConfiguration 会创建</h5><h5 id="请求拦截器，loadbalancerInterceptor-会拦截所有-RestTemplate请求"><a href="#请求拦截器，loadbalancerInterceptor-会拦截所有-RestTemplate请求" class="headerlink" title="请求拦截器，loadbalancerInterceptor (会拦截所有 RestTemplate请求 )"></a>请求拦截器，loadbalancerInterceptor (会拦截所有 RestTemplate请求 )</h5><h5 id="然后loadbalancerInterceptor-interceptor-调用-IloadBalancer-execute-RibbonLoadBalancerClient-execute"><a href="#然后loadbalancerInterceptor-interceptor-调用-IloadBalancer-execute-RibbonLoadBalancerClient-execute" class="headerlink" title="然后loadbalancerInterceptor#interceptor 调用 IloadBalancer.execute( RibbonLoadBalancerClient#execute)"></a>然后loadbalancerInterceptor#interceptor 调用 IloadBalancer.execute( RibbonLoadBalancerClient#execute)</h5><h5 id><a href="#" class="headerlink" title=" "></a> </h5><h5 id="-1"><a href="#-1" class="headerlink" title=" "></a> </h5><p><img src="https://static2.laiyifen.com/files/cheer/image/1567873531566_6681.jpg" alt></p>
-<h5 id="触发ribbon机制入口"><a href="#触发ribbon机制入口" class="headerlink" title="触发ribbon机制入口"></a>触发ribbon机制入口</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@LoadBalanced</span></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> RestTemplate <span class="title">getRestTemplate</span><span class="params">()</span></span>&#123;</span><br><span class="line">     <span class="keyword">return</span>   <span class="keyword">new</span> RestTemplate();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="2，初始化loadbalancerClient"><a href="#2，初始化loadbalancerClient" class="headerlink" title="2，初始化loadbalancerClient"></a>2，初始化loadbalancerClient</h5><h6 id="org-springframework-cloud-netflix-ribbon-RibbonClientConfiguration-ribbonLoadBalancer"><a href="#org-springframework-cloud-netflix-ribbon-RibbonClientConfiguration-ribbonLoadBalancer" class="headerlink" title="org.springframework.cloud.netflix.ribbon.RibbonClientConfiguration#ribbonLoadBalancer"></a>org.springframework.cloud.netflix.ribbon.RibbonClientConfiguration#ribbonLoadBalancer</h6><p><img src="https://static1.laiyifen.com/files/11/image/1567873931441_1273.jpg" alt></p>
-<h6 id="ZoneAwareLoadBalancer-是-IloadBalancer接口的实现类，"><a href="#ZoneAwareLoadBalancer-是-IloadBalancer接口的实现类，" class="headerlink" title="ZoneAwareLoadBalancer 是 IloadBalancer接口的实现类，"></a>ZoneAwareLoadBalancer 是 IloadBalancer接口的实现类，</h6><p><img src="https://static1.laiyifen.com/files/11/image/1567873994692_2326.jpg" alt></p>
-<h5 id="ZoneAwareLoadBalancer（surper"><a href="#ZoneAwareLoadBalancer（surper" class="headerlink" title="ZoneAwareLoadBalancer（surper"></a>ZoneAwareLoadBalancer（surper</h5><h5 id="DynamicServerListLoadBalancer）-实现功能"><a href="#DynamicServerListLoadBalancer）-实现功能" class="headerlink" title="DynamicServerListLoadBalancer） 实现功能"></a>DynamicServerListLoadBalancer） 实现功能</h5><h5 id="1，和eureka-client-获取增量服务注册列表，全量注册服务注册信息"><a href="#1，和eureka-client-获取增量服务注册列表，全量注册服务注册信息" class="headerlink" title="1，和eureka-client 获取增量服务注册列表，全量注册服务注册信息"></a>1，和eureka-client 获取增量服务注册列表，全量注册服务注册信息</h5><h5 id="2，定时更新eureka注册服务实例"><a href="#2，定时更新eureka注册服务实例" class="headerlink" title="2，定时更新eureka注册服务实例"></a>2，定时更新eureka注册服务实例</h5><h5 id="上代码"><a href="#上代码" class="headerlink" title="上代码"></a>上代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">com.netflix.loadbalancer.DynamicServerListLoadBalancer#restOfInit</span><br><span class="line"></span><br><span class="line"><span class="comment">// 构造ZoneAwareLoadBalancer 初始化方法</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">restOfInit</span><span class="params">(IClientConfig clientConfig)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> primeConnection = <span class="keyword">this</span>.isEnablePrimingConnections();</span><br><span class="line">        <span class="comment">// turn this off to avoid duplicated asynchronous priming done in BaseLoadBalancer.setServerList()</span></span><br><span class="line">        <span class="keyword">this</span>.setEnablePrimingConnections(<span class="keyword">false</span>);</span><br><span class="line">     </span><br><span class="line">        <span class="comment">//顾名思义。开启初始化学习新服务能力</span></span><br><span class="line">        enableAndInitLearnNewServersFeature();</span><br><span class="line">		</span><br><span class="line">        <span class="comment">// 更新服务</span></span><br><span class="line">        updateListOfServers();</span><br><span class="line">     </span><br><span class="line">     </span><br><span class="line">        <span class="keyword">if</span> (primeConnection &amp;&amp; <span class="keyword">this</span>.getPrimeConnections() != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.getPrimeConnections()</span><br><span class="line">                    .primeConnections(getReachableServers());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.setEnablePrimingConnections(primeConnection);</span><br><span class="line">        LOGGER.info(<span class="string">"DynamicServerListLoadBalancer for client &#123;&#125; initialized: &#123;&#125;"</span>, clientConfig.getClientName(), <span class="keyword">this</span>.toString());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="enableAndInitLearnNewServersFeature-定时更新服务注册列表"><a href="#enableAndInitLearnNewServersFeature-定时更新服务注册列表" class="headerlink" title="enableAndInitLearnNewServersFeature  定时更新服务注册列表"></a>enableAndInitLearnNewServersFeature  定时更新服务注册列表</h5><h5 id="通过-ScheduledThreadPoolExecutor-进行任务调度，"><a href="#通过-ScheduledThreadPoolExecutor-进行任务调度，" class="headerlink" title="通过 ScheduledThreadPoolExecutor 进行任务调度，"></a>通过 ScheduledThreadPoolExecutor 进行任务调度，</h5><h5 id="synchronized-保证线程安全。默认第一次是1秒，之后默认30秒"><a href="#synchronized-保证线程安全。默认第一次是1秒，之后默认30秒" class="headerlink" title="synchronized 保证线程安全。默认第一次是1秒，之后默认30秒"></a>synchronized 保证线程安全。默认第一次是1秒，之后默认30秒</h5><pre><code class="java"><span class="meta">@Override</span>
-<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">(<span class="keyword">final</span> UpdateAction updateAction)</span> </span>{
-    <span class="keyword">if</span> (isActive.compareAndSet(<span class="keyword">false</span>, <span class="keyword">true</span>)) {
-        <span class="keyword">final</span> Runnable wrapperRunnable = <span class="keyword">new</span> Runnable() {
-            <span class="meta">@Override</span>
-            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{
-                <span class="keyword">if</span> (!isActive.get()) {
-                    <span class="keyword">if</span> (scheduledFuture != <span class="keyword">null</span>) {
-                        scheduledFuture.cancel(<span class="keyword">true</span>);
-                    }
-                    <span class="keyword">return</span>;
-                }
-                <span class="keyword">try</span> {
-                    <span class="comment">//拉取所有服务注册信息</span>
-                    updateAction.doUpdate();
-                    lastUpdated = System.currentTimeMillis();
-                } <span class="keyword">catch</span> (Exception e) {
-                    logger.warn(<span class="string">"Failed one update cycle"</span>, e);
-                }
-            }
-        };
-
-        <span class="comment">//任务调度</span>
-        scheduledFuture = getRefreshExecutor().scheduleWithFixedDelay(
-                wrapperRunnable,
-                initialDelayMs,
-                refreshIntervalMs,
-                TimeUnit.MILLISECONDS
-        );
-    } <span class="keyword">else</span> {
-        logger.info(<span class="string">"Already active, no-op"</span>);
-    }
-}</code></pre>
-<h5 id="updateListOfServers-方法"><a href="#updateListOfServers-方法" class="headerlink" title="updateListOfServers 方法"></a>updateListOfServers 方法</h5><h5 id="是直接通过-eureka-discoverClient-通过serviceId-从eureka-server拉去对应的所有服务注册信息"><a href="#是直接通过-eureka-discoverClient-通过serviceId-从eureka-server拉去对应的所有服务注册信息" class="headerlink" title="是直接通过 eureka discoverClient 通过serviceId,从eureka-server拉去对应的所有服务注册信息"></a>是直接通过 eureka discoverClient 通过serviceId,从eureka-server拉去对应的所有服务注册信息</h5><h4 id="ribbon-和eureka-整合-org-springframework-context-annotation-Configuration"><a href="#ribbon-和eureka-整合-org-springframework-context-annotation-Configuration" class="headerlink" title="ribbon 和eureka 整合  org.springframework.context.annotation.Configuration"></a>ribbon 和eureka 整合  org.springframework.context.annotation.Configuration</h4><h4 id="回头看-在构造ZoneAwareLoadBalancer-的时候传入了ServerList-serverList-这个入参"><a href="#回头看-在构造ZoneAwareLoadBalancer-的时候传入了ServerList-serverList-这个入参" class="headerlink" title="回头看 在构造ZoneAwareLoadBalancer 的时候传入了ServerList serverList 这个入参"></a>回头看 在构造ZoneAwareLoadBalancer 的时候传入了ServerList<t> serverList 这个入参</t></h4><pre><code class="java">
-<span class="function"><span class="keyword">public</span> <span class="title">ZoneAwareLoadBalancer</span><span class="params">(IClientConfig clientConfig, IRule rule,</span></span>
-<span class="function"><span class="params">                             IPing ping, ServerList&lt;T&gt; serverList, ServerListFilter&lt;T&gt; filter,</span></span>
-<span class="function"><span class="params">                             ServerListUpdater serverListUpdater)</span> </span>{
-    <span class="keyword">super</span>(clientConfig, rule, ping, serverList, filter, serverListUpdater);
-}
-</code></pre>
-<h5 id="EurekaClient-是-eureka-的核心组件"><a href="#EurekaClient-是-eureka-的核心组件" class="headerlink" title="EurekaClient 是 eureka 的核心组件"></a>EurekaClient 是 eureka 的核心组件</h5><pre><code class="java">
-org.springframework.cloud.netflix.ribbon.eureka.EurekaRibbonClientConfiguration#ribbonServerList
-
-
-
-<span class="meta">@Bean</span>
-    <span class="meta">@ConditionalOnMissingBean</span>
-    <span class="keyword">public</span> ServerList&lt;?&gt; ribbonServerList(IClientConfig config, Provider&lt;EurekaClient&gt; eurekaClientProvider) {
-        <span class="keyword">if</span> (<span class="keyword">this</span>.propertiesFactory.isSet(ServerList.class, serviceId)) {
-            <span class="keyword">return</span> <span class="keyword">this</span>.propertiesFactory.get(ServerList.class, config, serviceId);
-        }
-        DiscoveryEnabledNIWSServerList discoveryServerList = <span class="keyword">new</span> DiscoveryEnabledNIWSServerList(
-                config, eurekaClientProvider);
-        DomainExtractingServerList serverList = <span class="keyword">new</span> DomainExtractingServerList(
-                discoveryServerList, config, <span class="keyword">this</span>.approximateZoneFromHostname);
-        <span class="keyword">return</span> serverList;
-    }</code></pre>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -550,10 +379,11 @@ org.springframework.cloud.netflix.ribbon.eureka.EurekaRibbonClientConfiguration#
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -561,6 +391,10 @@ org.springframework.cloud.netflix.ribbon.eureka.EurekaRibbonClientConfiguration#
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -581,8 +415,17 @@ org.springframework.cloud.netflix.ribbon.eureka.EurekaRibbonClientConfiguration#
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Awesome.li">
           <p class="site-author-name" itemprop="name">Awesome.li</p>
@@ -624,6 +467,22 @@ org.springframework.cloud.netflix.ribbon.eureka.EurekaRibbonClientConfiguration#
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#输出"><span class="nav-number">1.</span> <span class="nav-text">输出</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -737,10 +596,10 @@ org.springframework.cloud.netflix.ribbon.eureka.EurekaRibbonClientConfiguration#
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
