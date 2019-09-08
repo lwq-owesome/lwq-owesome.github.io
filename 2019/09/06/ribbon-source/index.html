@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="ch">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="Ribbon 是springcloud 负载均衡的组件，其工作原理就是 通过Eureka注册中心的ApplicationName进行请求转发（负载均衡）。客户端通过appname进行请求，ribbon内部通过RestTempelate 此appname 从eureka注册中心fetch 服务实例注册信息（服务名称，所在的机器ip 端口  是否存活等～），然后进行HTTP调用1 ，@LoadBala">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ribbon 源码解析（一）Ribbon初始化&amp;Ribbon -Eurka 整合">
+<meta property="og:url" content="http://yoursite.com/2019/09/06/ribbon-source/index.html">
+<meta property="og:site_name" content="记录我，记录生活">
+<meta property="og:description" content="Ribbon 是springcloud 负载均衡的组件，其工作原理就是 通过Eureka注册中心的ApplicationName进行请求转发（负载均衡）。客户端通过appname进行请求，ribbon内部通过RestTempelate 此appname 从eureka注册中心fetch 服务实例注册信息（服务名称，所在的机器ip 端口  是否存活等～），然后进行HTTP调用1 ，@LoadBala">
+<meta property="og:locale" content="ch">
+<meta property="og:image" content="https://static2.laiyifen.com/files/cheer/image/1567873531566_6681.jpg">
+<meta property="og:image" content="https://static1.laiyifen.com/files/11/image/1567873931441_1273.jpg">
+<meta property="og:image" content="https://static1.laiyifen.com/files/11/image/1567873994692_2326.jpg">
+<meta property="og:updated_time" content="2019-09-07T16:46:35.185Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ribbon 源码解析（一）Ribbon初始化&amp;Ribbon -Eurka 整合">
+<meta name="twitter:description" content="Ribbon 是springcloud 负载均衡的组件，其工作原理就是 通过Eureka注册中心的ApplicationName进行请求转发（负载均衡）。客户端通过appname进行请求，ribbon内部通过RestTempelate 此appname 从eureka注册中心fetch 服务实例注册信息（服务名称，所在的机器ip 端口  是否存活等～），然后进行HTTP调用1 ，@LoadBala">
+<meta name="twitter:image" content="https://static2.laiyifen.com/files/cheer/image/1567873531566_6681.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/09/06/ribbon-source/">
+
+
+
+
+
+  <title>Ribbon 源码解析（一）Ribbon初始化&Ribbon -Eurka 整合 | 记录我，记录生活</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="ch">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">记录我，记录生活</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/06/ribbon-source/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Awesome.li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记录我，记录生活">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Ribbon 源码解析（一）Ribbon初始化&Ribbon -Eurka 整合</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-06T09:28:10+08:00">
+                2019-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Ribbon-是springcloud-负载均衡的组件，其工作原理就是-通过Eureka注册中心的ApplicationName进行请求转发（负载均衡）。客户端通过appname进行请求，ribbon内部通过RestTempelate-此appname-从eureka注册中心fetch-服务实例注册信息（服务名称，所在的机器ip-端口-是否存活等～），然后进行HTTP调用"><a href="#Ribbon-是springcloud-负载均衡的组件，其工作原理就是-通过Eureka注册中心的ApplicationName进行请求转发（负载均衡）。客户端通过appname进行请求，ribbon内部通过RestTempelate-此appname-从eureka注册中心fetch-服务实例注册信息（服务名称，所在的机器ip-端口-是否存活等～），然后进行HTTP调用" class="headerlink" title="Ribbon 是springcloud 负载均衡的组件，其工作原理就是 通过Eureka注册中心的ApplicationName进行请求转发（负载均衡）。客户端通过appname进行请求，ribbon内部通过RestTempelate 此appname 从eureka注册中心fetch 服务实例注册信息（服务名称，所在的机器ip 端口  是否存活等～），然后进行HTTP调用"></a>Ribbon 是springcloud 负载均衡的组件，其工作原理就是 通过Eureka注册中心的ApplicationName进行请求转发（负载均衡）。客户端通过appname进行请求，ribbon内部通过RestTempelate 此appname 从eureka注册中心fetch 服务实例注册信息（服务名称，所在的机器ip 端口  是否存活等～），然后进行HTTP调用</h4><h5 id="1-，-LoadBalanced是入口，触发LoadBalancerAutoConfiguration。而LoadBalancedAutoConfiguration-会创建"><a href="#1-，-LoadBalanced是入口，触发LoadBalancerAutoConfiguration。而LoadBalancedAutoConfiguration-会创建" class="headerlink" title="1 ，@LoadBalanced是入口，触发LoadBalancerAutoConfiguration。而LoadBalancedAutoConfiguration 会创建"></a>1 ，@LoadBalanced是入口，触发LoadBalancerAutoConfiguration。而LoadBalancedAutoConfiguration 会创建</h5><h5 id="请求拦截器，loadbalancerInterceptor-会拦截所有-RestTemplate请求"><a href="#请求拦截器，loadbalancerInterceptor-会拦截所有-RestTemplate请求" class="headerlink" title="请求拦截器，loadbalancerInterceptor (会拦截所有 RestTemplate请求 )"></a>请求拦截器，loadbalancerInterceptor (会拦截所有 RestTemplate请求 )</h5><h5 id="然后loadbalancerInterceptor-interceptor-调用-IloadBalancer-execute-RibbonLoadBalancerClient-execute"><a href="#然后loadbalancerInterceptor-interceptor-调用-IloadBalancer-execute-RibbonLoadBalancerClient-execute" class="headerlink" title="然后loadbalancerInterceptor#interceptor 调用 IloadBalancer.execute( RibbonLoadBalancerClient#execute)"></a>然后loadbalancerInterceptor#interceptor 调用 IloadBalancer.execute( RibbonLoadBalancerClient#execute)</h5><h5 id><a href="#" class="headerlink" title=" "></a> </h5><h5 id="-1"><a href="#-1" class="headerlink" title=" "></a> </h5><p><img src="https://static2.laiyifen.com/files/cheer/image/1567873531566_6681.jpg" alt></p>
+<h5 id="触发ribbon机制入口"><a href="#触发ribbon机制入口" class="headerlink" title="触发ribbon机制入口"></a>触发ribbon机制入口</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@LoadBalanced</span></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> RestTemplate <span class="title">getRestTemplate</span><span class="params">()</span></span>&#123;</span><br><span class="line">     <span class="keyword">return</span>   <span class="keyword">new</span> RestTemplate();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2，初始化loadbalancerClient"><a href="#2，初始化loadbalancerClient" class="headerlink" title="2，初始化loadbalancerClient"></a>2，初始化loadbalancerClient</h5><h6 id="org-springframework-cloud-netflix-ribbon-RibbonClientConfiguration-ribbonLoadBalancer"><a href="#org-springframework-cloud-netflix-ribbon-RibbonClientConfiguration-ribbonLoadBalancer" class="headerlink" title="org.springframework.cloud.netflix.ribbon.RibbonClientConfiguration#ribbonLoadBalancer"></a>org.springframework.cloud.netflix.ribbon.RibbonClientConfiguration#ribbonLoadBalancer</h6><p><img src="https://static1.laiyifen.com/files/11/image/1567873931441_1273.jpg" alt></p>
+<h6 id="ZoneAwareLoadBalancer-是-IloadBalancer接口的实现类，"><a href="#ZoneAwareLoadBalancer-是-IloadBalancer接口的实现类，" class="headerlink" title="ZoneAwareLoadBalancer 是 IloadBalancer接口的实现类，"></a>ZoneAwareLoadBalancer 是 IloadBalancer接口的实现类，</h6><p><img src="https://static1.laiyifen.com/files/11/image/1567873994692_2326.jpg" alt></p>
+<h5 id="ZoneAwareLoadBalancer（surper"><a href="#ZoneAwareLoadBalancer（surper" class="headerlink" title="ZoneAwareLoadBalancer（surper"></a>ZoneAwareLoadBalancer（surper</h5><h5 id="DynamicServerListLoadBalancer）-实现功能"><a href="#DynamicServerListLoadBalancer）-实现功能" class="headerlink" title="DynamicServerListLoadBalancer） 实现功能"></a>DynamicServerListLoadBalancer） 实现功能</h5><h5 id="1，和eureka-client-获取增量服务注册列表，全量注册服务注册信息"><a href="#1，和eureka-client-获取增量服务注册列表，全量注册服务注册信息" class="headerlink" title="1，和eureka-client 获取增量服务注册列表，全量注册服务注册信息"></a>1，和eureka-client 获取增量服务注册列表，全量注册服务注册信息</h5><h5 id="2，定时更新eureka注册服务实例"><a href="#2，定时更新eureka注册服务实例" class="headerlink" title="2，定时更新eureka注册服务实例"></a>2，定时更新eureka注册服务实例</h5><h5 id="上代码"><a href="#上代码" class="headerlink" title="上代码"></a>上代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">com.netflix.loadbalancer.DynamicServerListLoadBalancer#restOfInit</span><br><span class="line"></span><br><span class="line"><span class="comment">// 构造ZoneAwareLoadBalancer 初始化方法</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">restOfInit</span><span class="params">(IClientConfig clientConfig)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> primeConnection = <span class="keyword">this</span>.isEnablePrimingConnections();</span><br><span class="line">        <span class="comment">// turn this off to avoid duplicated asynchronous priming done in BaseLoadBalancer.setServerList()</span></span><br><span class="line">        <span class="keyword">this</span>.setEnablePrimingConnections(<span class="keyword">false</span>);</span><br><span class="line">     </span><br><span class="line">        <span class="comment">//顾名思义。开启初始化学习新服务能力</span></span><br><span class="line">        enableAndInitLearnNewServersFeature();</span><br><span class="line">		</span><br><span class="line">        <span class="comment">// 更新服务</span></span><br><span class="line">        updateListOfServers();</span><br><span class="line">     </span><br><span class="line">     </span><br><span class="line">        <span class="keyword">if</span> (primeConnection &amp;&amp; <span class="keyword">this</span>.getPrimeConnections() != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.getPrimeConnections()</span><br><span class="line">                    .primeConnections(getReachableServers());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.setEnablePrimingConnections(primeConnection);</span><br><span class="line">        LOGGER.info(<span class="string">"DynamicServerListLoadBalancer for client &#123;&#125; initialized: &#123;&#125;"</span>, clientConfig.getClientName(), <span class="keyword">this</span>.toString());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="enableAndInitLearnNewServersFeature-定时更新服务注册列表"><a href="#enableAndInitLearnNewServersFeature-定时更新服务注册列表" class="headerlink" title="enableAndInitLearnNewServersFeature  定时更新服务注册列表"></a>enableAndInitLearnNewServersFeature  定时更新服务注册列表</h5><h5 id="通过-ScheduledThreadPoolExecutor-进行任务调度，"><a href="#通过-ScheduledThreadPoolExecutor-进行任务调度，" class="headerlink" title="通过 ScheduledThreadPoolExecutor 进行任务调度，"></a>通过 ScheduledThreadPoolExecutor 进行任务调度，</h5><h5 id="synchronized-保证线程安全。默认第一次是1秒，之后默认30秒"><a href="#synchronized-保证线程安全。默认第一次是1秒，之后默认30秒" class="headerlink" title="synchronized 保证线程安全。默认第一次是1秒，之后默认30秒"></a>synchronized 保证线程安全。默认第一次是1秒，之后默认30秒</h5><pre><code class="java"><span class="meta">@Override</span>
+<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">(<span class="keyword">final</span> UpdateAction updateAction)</span> </span>{
+    <span class="keyword">if</span> (isActive.compareAndSet(<span class="keyword">false</span>, <span class="keyword">true</span>)) {
+        <span class="keyword">final</span> Runnable wrapperRunnable = <span class="keyword">new</span> Runnable() {
+            <span class="meta">@Override</span>
+            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{
+                <span class="keyword">if</span> (!isActive.get()) {
+                    <span class="keyword">if</span> (scheduledFuture != <span class="keyword">null</span>) {
+                        scheduledFuture.cancel(<span class="keyword">true</span>);
+                    }
+                    <span class="keyword">return</span>;
+                }
+                <span class="keyword">try</span> {
+                    <span class="comment">//拉取所有服务注册信息</span>
+                    updateAction.doUpdate();
+                    lastUpdated = System.currentTimeMillis();
+                } <span class="keyword">catch</span> (Exception e) {
+                    logger.warn(<span class="string">"Failed one update cycle"</span>, e);
+                }
+            }
+        };
+
+        <span class="comment">//任务调度</span>
+        scheduledFuture = getRefreshExecutor().scheduleWithFixedDelay(
+                wrapperRunnable,
+                initialDelayMs,
+                refreshIntervalMs,
+                TimeUnit.MILLISECONDS
+        );
+    } <span class="keyword">else</span> {
+        logger.info(<span class="string">"Already active, no-op"</span>);
+    }
+}</code></pre>
+<h5 id="updateListOfServers-方法"><a href="#updateListOfServers-方法" class="headerlink" title="updateListOfServers 方法"></a>updateListOfServers 方法</h5><h5 id="是直接通过-eureka-discoverClient-通过serviceId-从eureka-server拉去对应的所有服务注册信息"><a href="#是直接通过-eureka-discoverClient-通过serviceId-从eureka-server拉去对应的所有服务注册信息" class="headerlink" title="是直接通过 eureka discoverClient 通过serviceId,从eureka-server拉去对应的所有服务注册信息"></a>是直接通过 eureka discoverClient 通过serviceId,从eureka-server拉去对应的所有服务注册信息</h5><h4 id="ribbon-和eureka-整合-org-springframework-context-annotation-Configuration"><a href="#ribbon-和eureka-整合-org-springframework-context-annotation-Configuration" class="headerlink" title="ribbon 和eureka 整合  org.springframework.context.annotation.Configuration"></a>ribbon 和eureka 整合  org.springframework.context.annotation.Configuration</h4><h4 id="回头看-在构造ZoneAwareLoadBalancer-的时候传入了ServerList-serverList-这个入参"><a href="#回头看-在构造ZoneAwareLoadBalancer-的时候传入了ServerList-serverList-这个入参" class="headerlink" title="回头看 在构造ZoneAwareLoadBalancer 的时候传入了ServerList serverList 这个入参"></a>回头看 在构造ZoneAwareLoadBalancer 的时候传入了ServerList<t> serverList 这个入参</t></h4><pre><code class="java">
+<span class="function"><span class="keyword">public</span> <span class="title">ZoneAwareLoadBalancer</span><span class="params">(IClientConfig clientConfig, IRule rule,</span></span>
+<span class="function"><span class="params">                             IPing ping, ServerList&lt;T&gt; serverList, ServerListFilter&lt;T&gt; filter,</span></span>
+<span class="function"><span class="params">                             ServerListUpdater serverListUpdater)</span> </span>{
+    <span class="keyword">super</span>(clientConfig, rule, ping, serverList, filter, serverListUpdater);
+}
+</code></pre>
+<h5 id="EurekaClient-是-eureka-的核心组件"><a href="#EurekaClient-是-eureka-的核心组件" class="headerlink" title="EurekaClient 是 eureka 的核心组件"></a>EurekaClient 是 eureka 的核心组件</h5><pre><code class="java">
+org.springframework.cloud.netflix.ribbon.eureka.EurekaRibbonClientConfiguration#ribbonServerList
+
+
+
+<span class="meta">@Bean</span>
+    <span class="meta">@ConditionalOnMissingBean</span>
+    <span class="keyword">public</span> ServerList&lt;?&gt; ribbonServerList(IClientConfig config, Provider&lt;EurekaClient&gt; eurekaClientProvider) {
+        <span class="keyword">if</span> (<span class="keyword">this</span>.propertiesFactory.isSet(ServerList.class, serviceId)) {
+            <span class="keyword">return</span> <span class="keyword">this</span>.propertiesFactory.get(ServerList.class, config, serviceId);
+        }
+        DiscoveryEnabledNIWSServerList discoveryServerList = <span class="keyword">new</span> DiscoveryEnabledNIWSServerList(
+                config, eurekaClientProvider);
+        DomainExtractingServerList serverList = <span class="keyword">new</span> DomainExtractingServerList(
+                discoveryServerList, config, <span class="keyword">this</span>.approximateZoneFromHostname);
+        <span class="keyword">return</span> serverList;
+    }</code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.gif" alt="Awesome.li">
+          <p class="site-author-name" itemprop="name">Awesome.li</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Ribbon-是springcloud-负载均衡的组件，其工作原理就是-通过Eureka注册中心的ApplicationName进行请求转发（负载均衡）。客户端通过appname进行请求，ribbon内部通过RestTempelate-此appname-从eureka注册中心fetch-服务实例注册信息（服务名称，所在的机器ip-端口-是否存活等～），然后进行HTTP调用"><span class="nav-number">1.</span> <span class="nav-text">Ribbon 是springcloud 负载均衡的组件，其工作原理就是 通过Eureka注册中心的ApplicationName进行请求转发（负载均衡）。客户端通过appname进行请求，ribbon内部通过RestTempelate 此appname 从eureka注册中心fetch 服务实例注册信息（服务名称，所在的机器ip 端口  是否存活等～），然后进行HTTP调用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-，-LoadBalanced是入口，触发LoadBalancerAutoConfiguration。而LoadBalancedAutoConfiguration-会创建"><span class="nav-number">1.1.</span> <span class="nav-text">1 ，@LoadBalanced是入口，触发LoadBalancerAutoConfiguration。而LoadBalancedAutoConfiguration 会创建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#请求拦截器，loadbalancerInterceptor-会拦截所有-RestTemplate请求"><span class="nav-number">1.2.</span> <span class="nav-text">请求拦截器，loadbalancerInterceptor (会拦截所有 RestTemplate请求 )</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#然后loadbalancerInterceptor-interceptor-调用-IloadBalancer-execute-RibbonLoadBalancerClient-execute"><span class="nav-number">1.3.</span> <span class="nav-text">然后loadbalancerInterceptor#interceptor 调用 IloadBalancer.execute( RibbonLoadBalancerClient#execute)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#null"><span class="nav-number">1.4.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#-1"><span class="nav-number">1.5.</span> <span class="nav-text"> </span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#触发ribbon机制入口"><span class="nav-number">1.6.</span> <span class="nav-text">触发ribbon机制入口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2，初始化loadbalancerClient"><span class="nav-number">1.7.</span> <span class="nav-text">2，初始化loadbalancerClient</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#org-springframework-cloud-netflix-ribbon-RibbonClientConfiguration-ribbonLoadBalancer"><span class="nav-number">1.7.1.</span> <span class="nav-text">org.springframework.cloud.netflix.ribbon.RibbonClientConfiguration#ribbonLoadBalancer</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#ZoneAwareLoadBalancer-是-IloadBalancer接口的实现类，"><span class="nav-number">1.7.2.</span> <span class="nav-text">ZoneAwareLoadBalancer 是 IloadBalancer接口的实现类，</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ZoneAwareLoadBalancer（surper"><span class="nav-number">1.8.</span> <span class="nav-text">ZoneAwareLoadBalancer（surper</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DynamicServerListLoadBalancer）-实现功能"><span class="nav-number">1.9.</span> <span class="nav-text">DynamicServerListLoadBalancer） 实现功能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1，和eureka-client-获取增量服务注册列表，全量注册服务注册信息"><span class="nav-number">1.10.</span> <span class="nav-text">1，和eureka-client 获取增量服务注册列表，全量注册服务注册信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2，定时更新eureka注册服务实例"><span class="nav-number">1.11.</span> <span class="nav-text">2，定时更新eureka注册服务实例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#上代码"><span class="nav-number">1.12.</span> <span class="nav-text">上代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#enableAndInitLearnNewServersFeature-定时更新服务注册列表"><span class="nav-number">1.13.</span> <span class="nav-text">enableAndInitLearnNewServersFeature  定时更新服务注册列表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过-ScheduledThreadPoolExecutor-进行任务调度，"><span class="nav-number">1.14.</span> <span class="nav-text">通过 ScheduledThreadPoolExecutor 进行任务调度，</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#synchronized-保证线程安全。默认第一次是1秒，之后默认30秒"><span class="nav-number">1.15.</span> <span class="nav-text">synchronized 保证线程安全。默认第一次是1秒，之后默认30秒</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#updateListOfServers-方法"><span class="nav-number">1.16.</span> <span class="nav-text">updateListOfServers 方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#是直接通过-eureka-discoverClient-通过serviceId-从eureka-server拉去对应的所有服务注册信息"><span class="nav-number">1.17.</span> <span class="nav-text">是直接通过 eureka discoverClient 通过serviceId,从eureka-server拉去对应的所有服务注册信息</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ribbon-和eureka-整合-org-springframework-context-annotation-Configuration"><span class="nav-number">2.</span> <span class="nav-text">ribbon 和eureka 整合  org.springframework.context.annotation.Configuration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回头看-在构造ZoneAwareLoadBalancer-的时候传入了ServerList-serverList-这个入参"><span class="nav-number">3.</span> <span class="nav-text">回头看 在构造ZoneAwareLoadBalancer 的时候传入了ServerList serverList 这个入参</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#EurekaClient-是-eureka-的核心组件"><span class="nav-number">3.1.</span> <span class="nav-text">EurekaClient 是 eureka 的核心组件</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Awesome.li</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
