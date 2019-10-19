@@ -306,6 +306,482 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lwq-owesome.github.io/2019/10/17/elk-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Awesome.li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://static3.laiyifen.com/files/sns/image/1567946318921_2785.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记录我，记录生活">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/10/17/elk-2/" itemprop="url">elk springboot 集成</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-17T13:55:24+08:00">
+                2019-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  248
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+<div>
+  
+</div>
+
+      
+      
+
+      
+        
+          
+            <h5 id="最基本的springboot的环境搭建我就不说了"><a href="#最基本的springboot的环境搭建我就不说了" class="headerlink" title="最基本的springboot的环境搭建我就不说了"></a>最基本的springboot的环境搭建我就不说了</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">添加pom.xml</span><br><span class="line"></span><br><span class="line">  &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;net.logstash.logback&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;logstash-logback-encoder&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;5.3&lt;/version&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<h5 id="添加-logback-spring-xml"><a href="#添加-logback-spring-xml" class="headerlink" title="添加 logback-spring.xml"></a>添加 logback-spring.xml</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;appender name=<span class="string">"LOGSTASH"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"net.logstash.logback.appender.LogstashTcpSocketAppender"</span>&gt;</span><br><span class="line">        &lt;destination&gt;localhost:4560&lt;/destination&gt;</span><br><span class="line">        &lt;!--&lt;encoder charset=<span class="string">"UTF-8"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"net.logstash.logback.encoder.LogstashEncoder"</span> /&gt;--&gt;</span><br><span class="line">        &lt;encoder charset=<span class="string">"UTF-8"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"net.logstash.logback.encoder.LogstashEncoder"</span> &gt;</span><br><span class="line">            &lt;customFields&gt;&#123;"appName":"springboot_logstash"&#125;&lt;/customFields&gt;</span><br><span class="line">		 customFields   appName ：表示索引名称</span><br><span class="line">        &lt;/encoder&gt;</span><br><span class="line">    &lt;/appender&gt;</span><br><span class="line"></span><br><span class="line">    &lt;include resource=<span class="string">"org/springframework/boot/logging/logback/base.xml"</span>/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;root level=<span class="string">"INFO"</span>&gt;</span><br><span class="line">        &lt;appender-ref ref=<span class="string">"LOGSTASH"</span> /&gt;</span><br><span class="line">        &lt;appender-ref ref=<span class="string">"CONSOLE"</span> /&gt;</span><br><span class="line">    &lt;/root&gt;</span><br><span class="line"></span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="项目中如何使用"><a href="#项目中如何使用" class="headerlink" title="项目中如何使用"></a>项目中如何使用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Logger logger = LoggerFactory.getLogger(SpringbootLogstashApplication.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"test"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line"><span class="comment">//            logger.error("something wrong. id=&#123;&#125;; name=Ryan-&#123;&#125;;", i, i);</span></span><br><span class="line">            logger.error(<span class="string">"something wrong. id=&#123;&#125;; name=Ryan-&#123;&#125;;"</span>, i, i);</span><br><span class="line">            logger.info(<span class="string">"入参 ：;"</span>, UUID.randomUUID(), i);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="没有图片，哈哈，自己慢慢入坑"><a href="#没有图片，哈哈，自己慢慢入坑" class="headerlink" title="没有图片，哈哈，自己慢慢入坑"></a>没有图片，哈哈，自己慢慢入坑</h4>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lwq-owesome.github.io/2019/10/17/elk-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Awesome.li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://static3.laiyifen.com/files/sns/image/1567946318921_2785.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记录我，记录生活">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/10/17/elk-1/" itemprop="url">elk环境搭建</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-17T13:47:05+08:00">
+                2019-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  186
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+<div>
+  
+</div>
+
+      
+      
+
+      
+        
+          
+            <h5 id="docker安装就行-我这边做简单安装，生产环境不要学我，安装不是重点"><a href="#docker安装就行-我这边做简单安装，生产环境不要学我，安装不是重点" class="headerlink" title="docker安装就行 我这边做简单安装，生产环境不要学我，安装不是重点"></a>docker安装就行 我这边做简单安装，生产环境不要学我，安装不是重点</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"> docker pull  elasticsearch</span><br><span class="line"> docker pull  kibana</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">下载docker镜像</span><br><span class="line">docker pul docker.elastic.co/logstash/logstash:<span class="number">6.5</span>.4</span><br><span class="line"></span><br><span class="line">创建文件夹 (用于容器文件的挂载)</span><br><span class="line"></span><br><span class="line">mkdir /usr/local/logstash/config</span><br><span class="line">logstash.yml (空文件就行)</span><br><span class="line">log4j2.properties</span><br><span class="line">logger.elasticsearchoutput.name = logstash.outputs.elasticsearch</span><br><span class="line">logger.elasticsearchoutput.level = debug</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">pipelines.yml(那个小杠杠很重要)</span><br><span class="line">- pipeline.id: my-logstash</span><br><span class="line">  path.config: <span class="string">"/usr/share/logstash/config/*.conf"</span></span><br><span class="line">  pipeline.workers: <span class="number">3</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">logstash-es-springboot.conf 文件</span><br><span class="line">input &#123;</span><br><span class="line">    tcp &#123;</span><br><span class="line">        port =&gt; <span class="number">4560</span></span><br><span class="line">        codec =&gt; json_lines</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">output&#123;</span><br><span class="line">  elasticsearch &#123; </span><br><span class="line">     hosts =&gt; [<span class="string">"localhost:9200"</span>] </span><br><span class="line">     index =&gt; "%&#123;[appName]&#125;-%&#123;+YYYY.MM.dd&#125;" #用一个项目名称来做索引</span><br><span class="line">  &#125;</span><br><span class="line">  stdout &#123; codec =&gt; rubydebug &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">docker run -d -p <span class="number">5044</span>:<span class="number">5044</span> -p <span class="number">9600</span>:<span class="number">9600</span> -it -v /usr/local/logstash/config/:/usr/share/logstash/config/  docker.elastic.co/logstash/logstash:<span class="number">6.5</span>.4</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://lwq-owesome.github.io/2019/10/06/docker-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Awesome.li">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://static3.laiyifen.com/files/sns/image/1567946318921_2785.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记录我，记录生活">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/10/06/docker-1/" itemprop="url">记录docker springcloud 环境传递profiles 参数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-06T09:28:10+08:00">
+                2019-10-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  68
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+<div>
+  
+</div>
+
+      
+      
+
+      
+        
+          
+            <h5 id="发泄一下"><a href="#发泄一下" class="headerlink" title="发泄一下"></a>发泄一下</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">它娘的，非常气氛，弄了快两个小时 fuck</span><br></pre></td></tr></table></figure>
+
+<h5 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FROM java:<span class="number">8</span></span><br><span class="line"></span><br><span class="line">MAINTAINER awesome</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ADD target/xxl-job-admin-*.jar /app.jar</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [<span class="string">"java"</span>,<span class="string">"-Djava.security.egd=file:/dev/./urandom"</span>,<span class="string">"-jar"</span>,<span class="string">"-Dspring.profiles.active=$&#123;SPRING_PROFILES_ACTIVE&#125;"</span>,<span class="string">"/app.jar"</span>]</span><br></pre></td></tr></table></figure>
+
+<h5 id="正确的启动方式"><a href="#正确的启动方式" class="headerlink" title="正确的启动方式"></a>正确的启动方式</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p <span class="number">8080</span>:<span class="number">8080</span> -e SPRING_PROFILES_ACTIVE=<span class="string">"dev"</span>   -v /tmp:/data/applogs  <span class="number">012</span>a2747a478</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://lwq-owesome.github.io/2019/09/08/round-arithmetic/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -711,7 +1187,7 @@ org.springframework.cloud.netflix.ribbon.eureka.EurekaRibbonClientConfiguration#
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
