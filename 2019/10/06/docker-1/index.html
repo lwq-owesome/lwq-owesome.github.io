@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="记录我，记录生活">
 <meta property="og:description" content="发泄一下1它娘的，非常气氛，弄了快两个小时 fuck  Dockerfile12345678FROM java:8MAINTAINER awesomeADD target/xxl-job-admin-*.jar /app.jarENTRYPOINT [&quot;java&quot;,&quot;-Djava.security.egd=file:/dev/./urandom&quot;,&quot;-jar&quot;,&quot;-Dspring.profiles">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-17T05:44:48.188Z">
+<meta property="og:updated_time" content="2019-10-29T16:11:13.781Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="记录docker springcloud 环境传递profiles 参数">
 <meta name="twitter:description" content="发泄一下1它娘的，非常气氛，弄了快两个小时 fuck  Dockerfile12345678FROM java:8MAINTAINER awesomeADD target/xxl-job-admin-*.jar /app.jarENTRYPOINT [&quot;java&quot;,&quot;-Djava.security.egd=file:/dev/./urandom&quot;,&quot;-jar&quot;,&quot;-Dspring.profiles">
@@ -371,7 +371,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  68
+                  69
                 </span>
               
 
@@ -420,7 +420,7 @@
       
         <h5 id="发泄一下"><a href="#发泄一下" class="headerlink" title="发泄一下"></a>发泄一下</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">它娘的，非常气氛，弄了快两个小时 fuck</span><br></pre></td></tr></table></figure>
 
-<h5 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FROM java:<span class="number">8</span></span><br><span class="line"></span><br><span class="line">MAINTAINER awesome</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ADD target/xxl-job-admin-*.jar /app.jar</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [<span class="string">"java"</span>,<span class="string">"-Djava.security.egd=file:/dev/./urandom"</span>,<span class="string">"-jar"</span>,<span class="string">"-Dspring.profiles.active=$&#123;SPRING_PROFILES_ACTIVE&#125;"</span>,<span class="string">"/app.jar"</span>]</span><br></pre></td></tr></table></figure>
+<h5 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FROM java:<span class="number">8</span></span><br><span class="line"></span><br><span class="line">MAINTAINER awesome</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ADD target/xxl-job-admin-*.jar /app.jar</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [<span class="string">"java"</span>,<span class="string">"-Djava.security.egd=file:/dev/./urandom"</span>,<span class="string">"-jar"</span>,<span class="string">"-Dspring.profiles.active=$&#123;SPRING_PROFILES_ACTIVE&#125;h"</span>,<span class="string">"/app.jar"</span>]</span><br></pre></td></tr></table></figure>
 
 <h5 id="正确的启动方式"><a href="#正确的启动方式" class="headerlink" title="正确的启动方式"></a>正确的启动方式</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p <span class="number">8080</span>:<span class="number">8080</span> -e SPRING_PROFILES_ACTIVE=<span class="string">"dev"</span>   -v /tmp:/data/applogs  <span class="number">012</span>a2747a478</span><br></pre></td></tr></table></figure>
 
@@ -573,7 +573,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
