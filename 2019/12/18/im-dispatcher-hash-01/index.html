@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="最基本的springboot的环境搭建我就不说了1234567添加pom.xml  &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt;net.logstash.logback&amp;lt;/groupId&amp;gt;            &amp;lt;artifactId&amp;gt;logstash-logback-encoder&amp;lt;/artifactId&amp;gt;">
+<meta name="description" content="不解释，直接上代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768  /**    * 选择一个分发系统    *    * @param uid 用户ID    * @return 分发系统实">
 <meta name="keywords" content="awesome">
 <meta property="og:type" content="article">
-<meta property="og:title" content="elk springboot 集成">
-<meta property="og:url" content="https://lwq-owesome.github.io/2019/10/17/elk-2/index.html">
+<meta property="og:title" content="kafka partition hash 一致性在 im系统 gateway 和dispatcher 用户转发一致性的应用">
+<meta property="og:url" content="https://lwq-owesome.github.io/2019/12/18/im-dispatcher-hash-01/index.html">
 <meta property="og:site_name" content="记录我，记录生活">
-<meta property="og:description" content="最基本的springboot的环境搭建我就不说了1234567添加pom.xml  &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt;net.logstash.logback&amp;lt;/groupId&amp;gt;            &amp;lt;artifactId&amp;gt;logstash-logback-encoder&amp;lt;/artifactId&amp;gt;">
+<meta property="og:description" content="不解释，直接上代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768  /**    * 选择一个分发系统    *    * @param uid 用户ID    * @return 分发系统实">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-17T06:09:47.557Z">
+<meta property="og:updated_time" content="2019-12-18T02:32:20.653Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="elk springboot 集成">
-<meta name="twitter:description" content="最基本的springboot的环境搭建我就不说了1234567添加pom.xml  &amp;lt;dependency&amp;gt;            &amp;lt;groupId&amp;gt;net.logstash.logback&amp;lt;/groupId&amp;gt;            &amp;lt;artifactId&amp;gt;logstash-logback-encoder&amp;lt;/artifactId&amp;gt;">
+<meta name="twitter:title" content="kafka partition hash 一致性在 im系统 gateway 和dispatcher 用户转发一致性的应用">
+<meta name="twitter:description" content="不解释，直接上代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768  /**    * 选择一个分发系统    *    * @param uid 用户ID    * @return 分发系统实">
 
 
 
@@ -134,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://lwq-owesome.github.io/2019/10/17/elk-2/">
+  <link rel="canonical" href="https://lwq-owesome.github.io/2019/12/18/im-dispatcher-hash-01/">
 
 
 
 
 
-  <title>elk springboot 集成 | 记录我，记录生活</title>
+  <title>kafka partition hash 一致性在 im系统 gateway 和dispatcher 用户转发一致性的应用 | 记录我，记录生活</title>
   
 
 
@@ -305,7 +305,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://lwq-owesome.github.io/2019/10/17/elk-2/">
+    <link itemprop="mainEntityOfPage" href="https://lwq-owesome.github.io/2019/12/18/im-dispatcher-hash-01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Awesome.li">
@@ -322,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">elk springboot 集成</h1>
+          <h1 class="post-title" itemprop="name headline">kafka partition hash 一致性在 im系统 gateway 和dispatcher 用户转发一致性的应用</h1>
         
 
         <div class="post-meta">
@@ -334,8 +334,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-17T13:55:24+08:00">
-                2019-10-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-18T10:26:41+08:00">
+                2019-12-18
               </time>
             
 
@@ -371,7 +371,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  248
+                  289
                 </span>
               
 
@@ -418,13 +418,9 @@
       
 
       
-        <h5 id="最基本的springboot的环境搭建我就不说了"><a href="#最基本的springboot的环境搭建我就不说了" class="headerlink" title="最基本的springboot的环境搭建我就不说了"></a>最基本的springboot的环境搭建我就不说了</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">添加pom.xml</span><br><span class="line"></span><br><span class="line">  &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;net.logstash.logback&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;logstash-logback-encoder&lt;/artifactId&gt;</span><br><span class="line">            &lt;version&gt;5.3&lt;/version&gt;</span><br><span class="line">  &lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+        <h5 id="不解释，直接上代码"><a href="#不解释，直接上代码" class="headerlink" title="不解释，直接上代码"></a>不解释，直接上代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 选择一个分发系统</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> uid 用户ID</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@return</span> 分发系统实例</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> DispatcherInstance <span class="title">chooseDispatcher</span><span class="params">(String uid)</span> </span>&#123;</span><br><span class="line">       ArrayList&lt;DispatcherInstance&gt; dispatcherInstances = <span class="keyword">new</span> ArrayList&lt;&gt;(dispatcherInstanceMap.values());</span><br><span class="line">       <span class="keyword">if</span> (dispatcherInstances.isEmpty()) &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">int</span> hash = toPositive(murmur2(uid.getBytes()));</span><br><span class="line">       <span class="keyword">int</span> index = hash % dispatcherInstances.size();</span><br><span class="line">       <span class="keyword">return</span> dispatcherInstances.get(index);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">toPositive</span><span class="params">(<span class="keyword">int</span> number)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> number &amp; <span class="number">0x7fffffff</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Generates 32 bit murmur2 hash from byte array</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> data byte array to hash</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 32 bit hash of the given array</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">murmur2</span><span class="params">(<span class="keyword">final</span> <span class="keyword">byte</span>[] data)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> length = data.length;</span><br><span class="line">        <span class="keyword">int</span> seed = <span class="number">0x9747b28c</span>;</span><br><span class="line">        <span class="comment">// 'm' and 'r' are mixing constants generated offline.</span></span><br><span class="line">        <span class="comment">// They're not really 'magic', they just happen to work well.</span></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> m = <span class="number">0x5bd1e995</span>;</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">int</span> r = <span class="number">24</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Initialize the hash to a random value</span></span><br><span class="line">        <span class="keyword">int</span> h = seed ^ length;</span><br><span class="line">        <span class="keyword">int</span> length4 = length / <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length4; i++) &#123;</span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">int</span> i4 = i * <span class="number">4</span>;</span><br><span class="line">            <span class="keyword">int</span> k = (data[i4 + <span class="number">0</span>] &amp; <span class="number">0xff</span>) + ((data[i4 + <span class="number">1</span>] &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">8</span>) + ((data[i4 + <span class="number">2</span>] &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">16</span>) + ((data[i4 + <span class="number">3</span>] &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">24</span>);</span><br><span class="line">            k *= m;</span><br><span class="line">            k ^= k &gt;&gt;&gt; r;</span><br><span class="line">            k *= m;</span><br><span class="line">            h *= m;</span><br><span class="line">            h ^= k;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Handle the last few bytes of the input array</span></span><br><span class="line">        <span class="keyword">switch</span> (length % <span class="number">4</span>) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                h ^= (data[(length &amp; ~<span class="number">3</span>) + <span class="number">2</span>] &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">16</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                h ^= (data[(length &amp; ~<span class="number">3</span>) + <span class="number">1</span>] &amp; <span class="number">0xff</span>) &lt;&lt; <span class="number">8</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                h ^= data[length &amp; ~<span class="number">3</span>] &amp; <span class="number">0xff</span>;</span><br><span class="line">                h *= m;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        h ^= h &gt;&gt;&gt; <span class="number">13</span>;</span><br><span class="line">        h *= m;</span><br><span class="line">        h ^= h &gt;&gt;&gt; <span class="number">15</span>;</span><br><span class="line">        <span class="keyword">return</span> h;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h5 id="添加-logback-spring-xml"><a href="#添加-logback-spring-xml" class="headerlink" title="添加 logback-spring.xml"></a>添加 logback-spring.xml</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br><span class="line">&lt;!DOCTYPE configuration&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;appender name=<span class="string">"LOGSTASH"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"net.logstash.logback.appender.LogstashTcpSocketAppender"</span>&gt;</span><br><span class="line">        &lt;destination&gt;localhost:4560&lt;/destination&gt;</span><br><span class="line">        &lt;!--&lt;encoder charset=<span class="string">"UTF-8"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"net.logstash.logback.encoder.LogstashEncoder"</span> /&gt;--&gt;</span><br><span class="line">        &lt;encoder charset=<span class="string">"UTF-8"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"net.logstash.logback.encoder.LogstashEncoder"</span> &gt;</span><br><span class="line">            &lt;customFields&gt;&#123;"appName":"springboot_logstash"&#125;&lt;/customFields&gt;</span><br><span class="line">		 customFields   appName ：表示索引名称</span><br><span class="line">        &lt;/encoder&gt;</span><br><span class="line">    &lt;/appender&gt;</span><br><span class="line"></span><br><span class="line">    &lt;include resource=<span class="string">"org/springframework/boot/logging/logback/base.xml"</span>/&gt;</span><br><span class="line"></span><br><span class="line">    &lt;root level=<span class="string">"INFO"</span>&gt;</span><br><span class="line">        &lt;appender-ref ref=<span class="string">"LOGSTASH"</span> /&gt;</span><br><span class="line">        &lt;appender-ref ref=<span class="string">"CONSOLE"</span> /&gt;</span><br><span class="line">    &lt;/root&gt;</span><br><span class="line"></span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
 
-<h4 id="项目中如何使用"><a href="#项目中如何使用" class="headerlink" title="项目中如何使用"></a>项目中如何使用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Logger logger = LoggerFactory.getLogger(SpringbootLogstashApplication.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"test"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line"><span class="comment">//            logger.error("something wrong. id=&#123;&#125;; name=Ryan-&#123;&#125;;", i, i);</span></span><br><span class="line">            logger.error(<span class="string">"something wrong. id=&#123;&#125;; name=Ryan-&#123;&#125;;"</span>, i, i);</span><br><span class="line">            logger.info(<span class="string">"入参 ：;"</span>, UUID.randomUUID(), i);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="没有图片，哈哈，自己慢慢入坑"><a href="#没有图片，哈哈，自己慢慢入坑" class="headerlink" title="没有图片，哈哈，自己慢慢入坑"></a>没有图片，哈哈，自己慢慢入坑</h4>
       
     </div>
     
@@ -448,8 +444,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/10/17/elk-1/" rel="next" title="elk环境搭建">
-                <i class="fa fa-chevron-left"></i> elk环境搭建
+              <a href="/2019/10/30/jvm-001/" rel="next" title="渣渣强带你解读 jVM Young GC全过程">
+                <i class="fa fa-chevron-left"></i> 渣渣强带你解读 jVM Young GC全过程
               </a>
             
           </div>
@@ -457,10 +453,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/10/24/redis-bitmap/" rel="prev" title="Redis的bitmap在亿级数据流中的应用">
-                Redis的bitmap在亿级数据流中的应用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -612,7 +604,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#最基本的springboot的环境搭建我就不说了"><span class="nav-number">1.</span> <span class="nav-text">最基本的springboot的环境搭建我就不说了</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#添加-logback-spring-xml"><span class="nav-number">2.</span> <span class="nav-text">添加 logback-spring.xml</span></a></li></ol><li class="nav-item nav-level-4"><a class="nav-link" href="#项目中如何使用"><span class="nav-number"></span> <span class="nav-text">项目中如何使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#没有图片，哈哈，自己慢慢入坑"><span class="nav-number"></span> <span class="nav-text">没有图片，哈哈，自己慢慢入坑</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#不解释，直接上代码"><span class="nav-number">1.</span> <span class="nav-text">不解释，直接上代码</span></a></li></ol></div>
             
 
           </div>
